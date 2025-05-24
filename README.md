@@ -203,6 +203,9 @@ response: 상태코드
 }
 ```
 
+#ERD
+![erd](./task2.png)
+
 
 
 
