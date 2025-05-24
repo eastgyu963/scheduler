@@ -3,6 +3,7 @@ package com.example.task2.controller;
 import com.example.task2.dto.ScheduleRequestDto;
 import com.example.task2.dto.ScheduleResponseDto;
 import com.example.task2.service.ScheduleService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class ScheduleController {
         this.scheduleService = scheduleService;
     }
     @PostMapping
-    public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody ScheduleRequestDto requestDto){
+    public ResponseEntity<ScheduleResponseDto> createSchedule(@Valid @RequestBody ScheduleRequestDto requestDto){
 
         return new ResponseEntity<>(scheduleService.saveSchedule(requestDto), HttpStatus.CREATED);
     }
@@ -28,9 +29,7 @@ public class ScheduleController {
     //수정일, 작성자명을 조건으로 등록된 일정을 모두 조회하는 기능. 두개 정보 모두 안 올수 있으므로 required 속성 활용.
     @GetMapping
     public ResponseEntity<List<ScheduleResponseDto>> findAllSchedule(@RequestParam(name = "writer",required = false) String writer,
-                                                                     @RequestParam(name="updateTime",required = false) LocalDate updateTime,
-                                                                     @RequestParam(name="page") int page,
-                                                                     @RequestParam(name="size") int size){
+                                                                     @RequestParam(name="updateTime",required = false) LocalDate updateTime){
         return new ResponseEntity<>(scheduleService.findAllSchedule(writer,updateTime), HttpStatus.OK);
     }
 
@@ -42,7 +41,7 @@ public class ScheduleController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ScheduleResponseDto> updateSchedule(@PathVariable("id") Long id,@RequestBody ScheduleRequestDto requestDto){
+    public ResponseEntity<ScheduleResponseDto> updateSchedule(@PathVariable("id") Long id, @RequestBody ScheduleRequestDto requestDto){
         return new ResponseEntity<>(scheduleService.updateSchedule(id, requestDto), HttpStatus.OK);
     }
 
