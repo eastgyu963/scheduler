@@ -2,7 +2,9 @@
 
 ## 신규 일정 등록
 method: POST
+
 url: /schedules
+
 request: 요청 body
 response: 등록 정보
 -성공: 상태코드 201, 저장된 일정 정보를 response body로 반환.
