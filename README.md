@@ -6,6 +6,7 @@ method: POST
 url: /schedules
 
 request: 요청 body
+
 response: 등록 정보
 -성공: 상태코드 201, 저장된 일정 정보를 response body로 반환.
 
@@ -34,10 +35,13 @@ response: 등록 정보
 
 ## 일정 목록 조회
 method: GET
+
 url: /schedules or /schedules?writer=writer or /schedules?updateTime=yyyy-mm-dd or /schedules?updateTime=yyyy-mm-dd&writer=writer
 request: 요청 param
+
 response: 다건 응답 정보
 -성공: 상태코드 200, 조건에 맞는 일정들을 수정일에 내림차순하게 반환
+
 > Response Examples
 
  200 Response
@@ -78,10 +82,14 @@ response: 다건 응답 정보
 
 ## 일정 조회
 method: GET
+
 url: /schedules/{id}
+
 request: 요청 param
+
 response: 단건 응답 정보
 -성공: 상태코드 200, id에 맞는 일정정보 반환
+
 > Response Examples
 
 ```json
@@ -97,11 +105,15 @@ response: 단건 응답 정보
 
 ## 일정 수정
 method: PATCH
+
 url: /schedules/{id}
+
 request: 요청 body
+
 response: 수정 정보
 -성공: 상태코드 200, 조건에 맞는 일정들을 수정일에 내림차순으로 반환
 -실패: 요청 body의 password와 저장된 password가 일치하지 않는 경우 상태코드 400반환.
+
 > Body Parameters
 ```json
 {
@@ -135,8 +147,11 @@ response: 수정 정보
 
 ## 일정삭제
 method: DELETE
+
 url: /schedules/{id}
+
 request: 요청 param
+
 response: 상태코드
 -성공: 상태코드 200
 -실패: 
