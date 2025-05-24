@@ -8,6 +8,7 @@ url: /schedules
 request: 요청 body
 
 response: 등록 정보
+
 -성공: 상태코드 201, 저장된 일정 정보를 response body로 반환.
 
 >Request Body (JSON) 예시
@@ -40,6 +41,7 @@ url: /schedules or /schedules?writer=writer or /schedules?updateTime=yyyy-mm-dd 
 request: 요청 param
 
 response: 다건 응답 정보
+
 -성공: 상태코드 200, 조건에 맞는 일정들을 수정일에 내림차순하게 반환
 
 > Response Examples
@@ -88,6 +90,7 @@ url: /schedules/{id}
 request: 요청 param
 
 response: 단건 응답 정보
+
 -성공: 상태코드 200, id에 맞는 일정정보 반환
 
 > Response Examples
@@ -111,7 +114,9 @@ url: /schedules/{id}
 request: 요청 body
 
 response: 수정 정보
+
 -성공: 상태코드 200, 조건에 맞는 일정들을 수정일에 내림차순으로 반환
+
 -실패: 요청 body의 password와 저장된 password가 일치하지 않는 경우 상태코드 400반환.
 
 > Body Parameters
@@ -153,7 +158,9 @@ url: /schedules/{id}
 request: 요청 param
 
 response: 상태코드
+
 -성공: 상태코드 200
+
 -실패: 
   1. 삭제하려는 데이터가 없는 경우: 상태코드 404(NOT FOUND) 반환
   2. 비밀번호가 일치하지 않는 경우: 상태코드 400(Bad Request)반환
