@@ -1,13 +1,13 @@
 # scheduler
 
-# task2
+## 신규 일정 등록
+method: POST
+url: /schedules
+request: 요청 body
+response: 등록 정보
+-성공: 상태코드 201, 저장된 일정 정보를 response body로 반환.
 
-## POST create
-
-POST /schedules
-
-> Body Parameters
-
+>Request Body (JSON) 예시
 ```json
 {
   "contents": "contents1",
@@ -18,20 +18,7 @@ POST /schedules
 }
 ```
 
-### Params
-
-|Name|Location|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|object| no |none|
-|» contents|body|string| yes |none|
-|» writer|body|string| yes |none|
-|» password|body|string| yes |none|
-|» writeTime|body|string| yes |none|
-|» updateTime|body|string| yes |none|
-
-> Response Examples
-
-> 201 Response
+> Response 
 
 ```json
 {
@@ -43,31 +30,15 @@ POST /schedules
 }
 ```
 
-### Responses
-
-|HTTP Status Code |Meaning|Description|Data schema|
-|---|---|---|---|
-|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|none|Inline|
-
-### Responses Data Schema
-
-HTTP Status Code **201**
-
-|Name|Type|Required|Restrictions|Title|description|
-|---|---|---|---|---|---|
-|» id|integer|true|none||none|
-|» contents|string|true|none||none|
-|» writer|string|true|none||none|
-|» writeTime|string|true|none||none|
-|» updateTime|string|true|none||none|
-
-## GET read all
-
-GET /schedules
-
+## 일정 목록 조회
+method: GET
+url: /schedules or /schedules?writer=writer or /schedules?updateTime=yyyy-mm-dd or /schedules?updateTime=yyyy-mm-dd&writer=writer
+request: 요청 param
+response: 다건 응답 정보
+-성공: 상태코드 200, 조건에 맞는 일정들을 수정일에 내림차순하게 반환
 > Response Examples
 
-> 200 Response
+ 200 Response
 
 ```json
 [
@@ -78,13 +49,7 @@ GET /schedules
     "writeTime": "2025-05-22",
     "updateTime": "2025-05-24"
   },
-  {
-    "id": 9,
-    "contents": "contents1",
-    "writer": "writer1",
-    "writeTime": "2025-05-24",
-    "updateTime": "2025-05-24"
-  },
+
   {
     "id": 10,
     "contents": "contents8",
@@ -100,13 +65,6 @@ GET /schedules
     "updateTime": "2025-05-22"
   },
   {
-    "id": 6,
-    "contents": "title2",
-    "writer": "writer2",
-    "writeTime": "2025-05-22",
-    "updateTime": "2025-05-22"
-  },
-  {
     "id": 8,
     "contents": "title4 수정",
     "writer": "writer4 수정",
@@ -116,31 +74,13 @@ GET /schedules
 ]
 ```
 
-### Responses
-
-|HTTP Status Code |Meaning|Description|Data schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|Inline|
-
-### Responses Data Schema
-
-HTTP Status Code **200**
-
-|Name|Type|Required|Restrictions|Title|description|
-|---|---|---|---|---|---|
-|» id|integer|true|none||none|
-|» contents|string|true|none||none|
-|» writer|string|true|none||none|
-|» writeTime|string|true|none||none|
-|» updateTime|string|true|none||none|
-
-## GET read one
-
-GET /
-
+## 일정 조회
+method: GET
+url: /schedules/{id}
+request: 요청 param
+response: 단건 응답 정보
+-성공: 상태코드 200, id에 맞는 일정정보 반환
 > Response Examples
-
-> 200 Response
 
 ```json
 {
@@ -152,30 +92,15 @@ GET /
 }
 ```
 
-### Responses
 
-|HTTP Status Code |Meaning|Description|Data schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|Inline|
-
-### Responses Data Schema
-
-HTTP Status Code **200**
-
-|Name|Type|Required|Restrictions|Title|description|
-|---|---|---|---|---|---|
-|» id|integer|true|none||none|
-|» contents|string|true|none||none|
-|» writer|string|true|none||none|
-|» writeTime|string|true|none||none|
-|» updateTime|string|true|none||none|
-
-## PATCH update
-
-PATCH /schedules/7
-
+## 일정 수정
+method: PATCH
+url: /schedules/{id}
+request: 요청 body
+response: 수정 정보
+-성공: 상태코드 200, 조건에 맞는 일정들을 수정일에 내림차순으로 반환
+-실패: 요청 body의 password와 저장된 password가 일치하지 않는 경우 상태코드 400반환.
 > Body Parameters
-
 ```json
 {
   "contents": "contents7 수정",
@@ -184,19 +109,8 @@ PATCH /schedules/7
 }
 ```
 
-### Params
-
-|Name|Location|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|object| no |none|
-|» contents|body|string| yes |none|
-|» writer|body|string| yes |none|
-|» password|body|string| yes |none|
-
 > Response Examples
-
 > 200 Response
-
 ```json
 {
   "id": 7,
@@ -206,9 +120,7 @@ PATCH /schedules/7
   "updateTime": "2025-05-24"
 }
 ```
-
 > 400 Response
-
 ```json
 {
   "timestamp": "2025-05-23T16:18:01.470+00:00",
@@ -218,60 +130,24 @@ PATCH /schedules/7
 }
 ```
 
-### Responses
 
-|HTTP Status Code |Meaning|Description|Data schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|Inline|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|none|Inline|
-
-### Responses Data Schema
-
-HTTP Status Code **200**
-
-|Name|Type|Required|Restrictions|Title|description|
-|---|---|---|---|---|---|
-|» id|integer|true|none||none|
-|» contents|string|true|none||none|
-|» writer|string|true|none||none|
-|» writeTime|string|true|none||none|
-|» updateTime|string|true|none||none|
-
-HTTP Status Code **400**
-
-|Name|Type|Required|Restrictions|Title|description|
-|---|---|---|---|---|---|
-|» timestamp|string|true|none||none|
-|» status|integer|true|none||none|
-|» error|string|true|none||none|
-|» path|string|true|none||none|
-
-## DELETE delete
-
-DELETE /schedules/1
+## 일정삭제
+method: DELETE
+url: /schedules/{id}
+request: 요청 param
+response: 상태코드
+-성공: 상태코드 200
+-실패: 
+  1. 삭제하려는 데이터가 없는 경우: 상태코드 404(NOT FOUND) 반환
+  2. 비밀번호가 일치하지 않는 경우: 상태코드 400(Bad Request)반환
 
 > Body Parameters
 
 ```json
 {
-  "contents": "contents1",
-  "writer": "writer1",
   "password": "password1",
-  "writeTime": "2025-05-24",
-  "updateTime": "2025-05-24"
 }
 ```
-
-### Params
-
-|Name|Location|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|object| no |none|
-|» contents|body|string| yes |none|
-|» writer|body|string| yes |none|
-|» password|body|string| yes |none|
-|» writeTime|body|string| yes |none|
-|» updateTime|body|string| yes |none|
 
 > Response Examples
 
@@ -281,7 +157,7 @@ DELETE /schedules/1
 {}
 ```
 
-> 400 Response
+> 400 Response(비밀번호가 틀린 경우)
 
 ```json
 {
@@ -292,7 +168,7 @@ DELETE /schedules/1
 }
 ```
 
-> 404 Response
+> 404 Response(삭제하려는 일정이 없는 경우)
 
 ```json
 {
@@ -303,33 +179,7 @@ DELETE /schedules/1
 }
 ```
 
-### Responses
 
-|HTTP Status Code |Meaning|Description|Data schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|Inline|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|none|Inline|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|none|Inline|
 
-### Responses Data Schema
 
-HTTP Status Code **400**
-
-|Name|Type|Required|Restrictions|Title|description|
-|---|---|---|---|---|---|
-|» timestamp|string|true|none||none|
-|» status|integer|true|none||none|
-|» error|string|true|none||none|
-|» path|string|true|none||none|
-
-HTTP Status Code **404**
-
-|Name|Type|Required|Restrictions|Title|description|
-|---|---|---|---|---|---|
-|» timestamp|string|true|none||none|
-|» status|integer|true|none||none|
-|» error|string|true|none||none|
-|» path|string|true|none||none|
-
-# Data Schema
 
