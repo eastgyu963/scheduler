@@ -184,6 +184,8 @@ response: 상태코드
   "path": "/schedules/1"
 }
 ```
+## ERD
 
+![image](https://github.com/user-attachments/assets/8b685732-cd13-433d-b870-f8a566dd66ec)
 
 
