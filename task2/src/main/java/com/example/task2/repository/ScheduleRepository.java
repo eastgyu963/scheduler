@@ -13,8 +13,11 @@ public interface ScheduleRepository {
     ScheduleResponseDto saveSchedule(ScheduleRequestDto scheduleRequestDto);
 
     List<ScheduleResponseDto> findAllSchedule(String writer, LocalDate updateTime);
+    List<ScheduleResponseDto> findScheduleByPage(int page, int size);
+
     List<ScheduleResponseDto> findAllScheduleByUpdateTime(String updateTime);
     List<ScheduleResponseDto> findAllScheduleByWriter(String writer);
+
 
     Optional<Schedule> findScheduleById(Long id);
 

@@ -4,6 +4,7 @@ import com.example.task2.dto.ScheduleRequestDto;
 import com.example.task2.dto.ScheduleResponseDto;
 import com.example.task2.service.ScheduleService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,11 @@ public class ScheduleController {
         return new ResponseEntity<>(scheduleService.findAllSchedule(writer,updateTime), HttpStatus.OK);
     }
 
+    @GetMapping("/paging")
+    public ResponseEntity<List<ScheduleResponseDto>> paging(@RequestParam(name = "page") int page, @RequestParam(name = "size") int size) {
 
+        return new ResponseEntity<>(scheduleService.findScheduleByPage(page, size), HttpStatus.OK);
+    }
     @GetMapping("/{id}")
     public ResponseEntity<ScheduleResponseDto> findScheduleById(@PathVariable("id") Long id){
         return new ResponseEntity<>(scheduleService.findScheduleById(id), HttpStatus.OK);

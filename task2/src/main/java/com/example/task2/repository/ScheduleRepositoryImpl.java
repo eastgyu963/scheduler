@@ -72,6 +72,14 @@ public class ScheduleRepositoryImpl  implements ScheduleRepository{
         );
     }
 
+    public List<ScheduleResponseDto> findScheduleByPage(int page, int size) {
+        int offset = (page - 1) * size;
+
+        String sql = "SELECT * FROM schedule LIMIT ? OFFSET ?";
+        System.out.println("size="+size);
+        return jdbcTemplate.query(sql, scheduleResponseDtoRowMapper(),size, offset);
+    }
+
     @Override
     public List<ScheduleResponseDto> findAllScheduleByUpdateTime(String updateTime) {
         return jdbcTemplate.query("select * from schedule where updateTime=?", scheduleResponseDtoRowMapper(), updateTime);
